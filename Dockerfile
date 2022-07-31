@@ -28,7 +28,7 @@ RUN pip install playwright && \
     pip install pytest-playwright  && \
     playwright install && \
     pip install selenium && \
-    pip install pyppeteer && python3 /tmp/build/pyppeteer.py
+    pip install pyppeteer && python3 /tmp/build/pyppeteerLaunch.py
 
 RUN DEBIAN_FRONTEND=noninteractive playwright install-deps
 
