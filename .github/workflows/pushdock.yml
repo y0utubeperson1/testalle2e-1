@@ -11,7 +11,7 @@ env:
   TEST_TAG: y0utubesir/alle2e:latest-test
   OFFICIAL_TAG: y0utubesir/alle2e:latest
   MAIN_REPO_NAME: y0utubesir/alle2e
-  DOCKERFILE_PATH: ./Dockerfile
+  DOCKERFILE_PATH: .
 
 jobs:
   docker:
