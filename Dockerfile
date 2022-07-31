@@ -9,7 +9,7 @@ WORKDIR /tmp
 COPY ./build /tmp/build
 RUN chmod -R +x /tmp/build
 
-# Install yarn & Playwright for Node
+# Install yarn & e2e libraries for Node
 RUN /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
     npx playwright install && \
@@ -23,11 +23,12 @@ RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.ma
     apt-get install -y --no-install-recommends python${PYTHONV}-distutils && \
     curl https://bootstrap.pypa.io/get-pip.py | python3
 
-#Install Playwright for Python
+#Install e2e libraries for Python
 RUN pip install playwright && \
     pip install pytest-playwright  && \
     playwright install && \
-    pip install selenium
+    pip install selenium && \
+    pip install pyppeteer && python3 /tmp/build/pyppeteer.py
 
 RUN DEBIAN_FRONTEND=noninteractive playwright install-deps
 
