@@ -15,7 +15,7 @@ RUN chmod -R +x /tmp/build
 RUN /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
     npx playwright install && \
-    npm install --global cypress && \
+    npm install --global cypress && cypress run --browser chrome && cypress run --browser firefox \
     npm install --global puppeteer && \
     npm install --global selenium-webdriver
 
