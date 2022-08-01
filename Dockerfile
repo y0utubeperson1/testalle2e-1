@@ -3,7 +3,7 @@ FROM atlassian/default-image:3
 ARG CACHEBUST=1
 
 ENV CYPRESS_CRASH_REPORTS=0
-ENV DISPLAY :99:0
+ENV DISPLAY :99
 ENV TERM xterm
 ENV npm_config_loglevel warn
 #ENV npm_config_unsafe_perm true
@@ -18,7 +18,7 @@ RUN chmod -R +x /tmp/build
 RUN export DEBIAN_FRONTEND=noninteractive && \
     export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.major}.{sys.version_info.minor}')\")") && \ 
     apt-get update && \
-    apt-get install -y python${PYTHONV}-distutils libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick && \
+    apt-get install -y python${PYTHONV}-distutils libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick ffmpeg && \
     curl https://bootstrap.pypa.io/get-pip.py | python3
 
 #Install Chrome & Firefox
@@ -29,6 +29,7 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 
 # Install yarn & e2e libraries for Node
 RUN /tmp/build/nodeSetUnsafe.sh && \
+    Xvfb -screen 0 1024x768x24 :99 && \
     npm install --global yarn && \
     npx playwright install && \
     npm install --global cypress && cypress run --browser chrome && cypress run --browser firefox \
