@@ -18,6 +18,12 @@ RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.ma
     apt-get install -y --no-install-recommends python${PYTHONV}-distutils libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick && \
     curl https://bootstrap.pypa.io/get-pip.py | python3
 
+#Install Chrome & Firefox
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable firefox
+
 # Install yarn & e2e libraries for Node
 RUN /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
@@ -25,12 +31,6 @@ RUN /tmp/build/nodeSetUnsafe.sh && \
     npm install --global cypress && cypress run --browser chrome && cypress run --browser firefox \
     npm install --global puppeteer && \
     npm install --global selenium-webdriver
-
-#Install Chrome & Firefox
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
-    apt-get update && \
-    apt-get install -y google-chrome-stable firefox
 
 #Install e2e libraries for Python
 RUN pip install playwright && \
