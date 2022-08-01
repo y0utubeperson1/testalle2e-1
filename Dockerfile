@@ -3,7 +3,7 @@ FROM atlassian/default-image:3
 ARG CACHEBUST=1
 
 ENV CYPRESS_CRASH_REPORTS=0
-ENV DISPLAY :99
+ENV DISPLAY :99:0
 #ENV npm_config_unsafe_perm true
 #ENV npm_config_set_user 0
 
