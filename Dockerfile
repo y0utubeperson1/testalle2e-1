@@ -23,6 +23,14 @@ RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.ma
     apt-get install -y --no-install-recommends python${PYTHONV}-distutils && \
     curl https://bootstrap.pypa.io/get-pip.py | python3
 
+#Install Chrome & Firefox
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+    dpkg -i google-chrome-stable_current_amd64.deb && \
+    wget -O /tmp/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" && \
+    sudo tar xjf ~/FirefoxSetup.tar.bz2 -C /opt/ && \
+    sudo ln -s /opt/firefox/firefox /usr/lib/firefox/firefox
+
+
 #Install e2e libraries for Python
 RUN pip install playwright && \
     pip install pytest-playwright  && \
