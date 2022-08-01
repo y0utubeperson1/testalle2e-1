@@ -3,6 +3,8 @@ FROM atlassian/default-image:3
 ARG CACHEBUST=1
 
 ENV CYPRESS_CRASH_REPORTS=0
+#ENV npm_config_unsafe_perm true
+#ENV npm_config_set_user 0
 
 #Copy intended files for build script
 WORKDIR /tmp
@@ -24,10 +26,12 @@ RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.ma
     curl https://bootstrap.pypa.io/get-pip.py | python3
 
 #Install Chrome & Firefox
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    apt-get install -y ./google-chrome-stable_current_amd64.deb && \
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable && \
     wget -O /tmp/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" && \
-    tar xjf ~/FirefoxSetup.tar.bz2 -C /opt/ && \
+    tar xjf /tmp/FirefoxSetup.tar.bz2 -C /opt/ && \
     ln -s /opt/firefox/firefox /usr/lib/firefox/firefox
 
 
