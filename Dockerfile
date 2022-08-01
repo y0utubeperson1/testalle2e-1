@@ -29,11 +29,7 @@ RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.ma
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
     apt-get update && \
-    apt-get install -y google-chrome-stable && \
-    wget -O /tmp/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64" && \
-    tar xjf /tmp/FirefoxSetup.tar.bz2 -C /opt/ && \
-    ln -s /opt/firefox/firefox /usr/lib/firefox/firefox
-
+    apt-get install -y google-chrome-stable firefox
 
 #Install e2e libraries for Python
 RUN pip install playwright && \
