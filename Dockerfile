@@ -13,7 +13,8 @@ COPY ./build /tmp/build
 RUN chmod -R +x /tmp/build
 
 #Prepare Python and Libs
-RUN export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.major}.{sys.version_info.minor}')\")") && \ 
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    export PYTHONV=$(python3 -c "exec(\"import sys\nprint(f'{sys.version_info.major}.{sys.version_info.minor}')\")") && \ 
     apt-get update && \
     apt-get install -y python${PYTHONV}-distutils libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable imagemagick && \
     curl https://bootstrap.pypa.io/get-pip.py | python3
