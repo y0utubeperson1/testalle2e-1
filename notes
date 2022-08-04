@@ -1,0 +1,10 @@
+user@user-VirtualBox:~/Downloads/testalle2e-1/base$ docker build -f ./playwright/Dockerfile.playwright ~/Downloads/testalle2e-1/base
+
+
+```
+docker build --build-arg CACHEBUST=$(date +%s) .
+```
+
+```
+docker system prune -a -f && docker build --build-arg CACHEBUST=$(date +%s) .
+```

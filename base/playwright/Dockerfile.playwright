@@ -1,0 +1,36 @@
+FROM ubuntu:20.04
+
+ENV PYTHONV 3.8
+ENV NODEV 16
+
+WORKDIR /tmp
+COPY /build /tmp/build
+RUN chmod -R +x /tmp/build
+
+RUN echo '-----> Installing Necessary Libraries & Packages' && \
+    export DEBIAN_FRONTEND=noninteractive && \
+    apt-get update && \
+    apt-get install -y python${PYTHONV} python${PYTHONV}-distutils curl && \
+    curl https://bootstrap.pypa.io/get-pip.py | python3 && \
+    curl -fsSL https://deb.nodesource.com/setup_${NODEV}.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get autoremove -y && \
+    echo '-----> Library & Package Installation Complete'
+
+RUN echo '-----> Installing Playwright for Node' && \
+    /tmp/build/nodeSetUnsafe.sh && \
+    npm install --global yarn && \
+    npx playwright install && \
+    echo '-----> Playwright for Node Installation Complete'
+
+RUN echo '-----> Installing Playwright for Python' && \
+    pip install playwright && \
+    pip install pytest-playwright  && \
+    playwright install && \
+    echo '-----> Playwright for Python Installation Complete'
+    
+RUN echo '-----> Installing Playwright System Dependancies' && \
+    DEBIAN_FRONTEND=noninteractive playwright install-deps && \
+    echo '-----> Playwright System Dependancies Complete'
+
+RUN rm -rf /tmp/*

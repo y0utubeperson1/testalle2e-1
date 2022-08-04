@@ -1,5 +1,4 @@
-name: Latest
-
+name: Playwright
 on:
   push:
     branches:
@@ -8,8 +7,8 @@ on:
     - cron: "0 0 * * 0"
 
 env:
-  TEST_TAG: y0utubesir/alle2e:latest-test
-  OFFICIAL_TAG: y0utubesir/alle2e:latest
+  TEST_TAG: y0utubesir/e2e-playwright:atlassian-test
+  OFFICIAL_TAG: y0utubesir/e2e-playwright:atlassian
   MAIN_REPO_NAME: y0utubesir/alle2e
   DOCKERFILE_PATH: .
 
@@ -34,6 +33,12 @@ jobs:
           context: ${{ env.DOCKERFILE_PATH }}
           load: true
           tags: ${{ env.TEST_TAG }}
+      - name: Remove Test Image from DockerHub
+        run: |
+          node ./base/makeTestDockerfile.js
+          docker build /tmp/
+        env:
+          BASE_IMG: ${{env.TEST_TAG}}
       - name: Remove Test Image from DockerHub
         run: |
           echo "Test was successful, removing test image"
