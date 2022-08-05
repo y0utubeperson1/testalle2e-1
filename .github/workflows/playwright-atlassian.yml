@@ -18,13 +18,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Print Out All Paths
-        run: |
-          find $(pwd) -type f -not -path '*/\.*' | sort 
-          echo "---- path"
-          echo ${{env.GITHUB_WORKSPACE}}
-          echo "---- path"
-          echo ${{ env.DOCKERFILE_PATH }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
