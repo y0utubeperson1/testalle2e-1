@@ -10,7 +10,7 @@ env:
   TEST_TAG: y0utubesir/e2e-playwright:atlassian-test
   OFFICIAL_TAG: y0utubesir/e2e-playwright:atlassian
   MAIN_REPO_NAME: y0utubesir/e2e-playwright
-  DOCKERFILE_PATH:  ${GITHUB_WORKSPACE}/base/playwright
+  DOCKERFILE_PATH:  ${{ env.GITHUB_WORKSPACE }}/base/playwright
 
 jobs:
   docker:
