@@ -23,6 +23,8 @@ jobs:
           find $(pwd) -type f -not -path '*/\.*' | sort 
           echo "---- path"
           echo ${GITHUB_WORKSPACE}
+          echo "---- path"
+          echo ${{ env.DOCKERFILE_PATH }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
