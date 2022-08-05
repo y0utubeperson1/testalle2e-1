@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
-          context: ${{ env.GITHUB_WORKSPACE }}/base/
+          context: .base
           load: true
           tags: ${{ env.TEST_TAG }}
       - name: Remove Test Image from DockerHub
