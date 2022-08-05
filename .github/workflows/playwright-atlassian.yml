@@ -48,7 +48,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
-          load: true
+          push: true
           tags: ${{ env.OFFICIAL_TAG }}
       - name: Update repo description
         uses: peter-evans/dockerhub-description@v2
