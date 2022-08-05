@@ -34,7 +34,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
-      - name: Build and export to DockerHub
+      - name: Build and export test image to DockerHub
         uses: docker/build-push-action@v3
         with:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
@@ -51,12 +51,11 @@ jobs:
         run: |
           echo "Test was successful, removing test image"
           docker run --rm ${{ env.TEST_TAG }}
-      - name: Build and push
+      - name: Build and push image to DockerHub
         uses: docker/build-push-action@v3
         with:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
-          platforms: linux/amd64
-          push: true
+          load: true
           tags: ${{ env.OFFICIAL_TAG }}
       - name: Update repo description
         uses: peter-evans/dockerhub-description@v2
