@@ -1,6 +1,5 @@
 FROM atlassian/default-image:3
 
-#Copy intended files for build script
 WORKDIR /tmp
 COPY ./base/build /tmp/build
 RUN chmod -R +x /tmp

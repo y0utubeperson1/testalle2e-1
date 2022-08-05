@@ -54,7 +54,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ${{ env.DOCKERFILE_PATH }}
+          file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
           platforms: linux/amd64
           push: true
           tags: ${{ env.OFFICIAL_TAG }}
