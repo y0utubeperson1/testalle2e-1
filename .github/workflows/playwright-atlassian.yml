@@ -1,4 +1,4 @@
-name: Playwright
+name: Playwright Atlassian
 on:
   push:
     branches:
@@ -40,10 +40,11 @@ jobs:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
           load: true
           tags: ${{ env.TEST_TAG }}
-      - name: Remove Test Image from DockerHub
+      - name: Create Dockerfile and Run
         run: |
+          mkdir /tmp/testdocker
           node ./base/makeTestDockerfile.js
-          docker build -t tesr_tag /tmp/
+          docker build -t test_tag /tmp/tmp/testdocker
         env:
           BASE_IMG: ${{env.TEST_TAG}}
       - name: Remove Test Image from DockerHub

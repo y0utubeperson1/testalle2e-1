@@ -10,7 +10,7 @@ ENV CI true
 
 RUN yarn init -y && yarn create playwright --quiet --lang=js && yarn playwright test
 `;
-    await fs.writeFile('/tmp/Dockerfile', content);
+    await fs.writeFile('/tmp/testdocker/Dockerfile', content);
     } catch (err) {
     throw err;
     }
