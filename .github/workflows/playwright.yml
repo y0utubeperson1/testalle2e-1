@@ -10,7 +10,7 @@ env:
   TEST_TAG: y0utubesir/e2e-playwright:atlassian-test
   OFFICIAL_TAG: y0utubesir/e2e-playwright:atlassian
   MAIN_REPO_NAME: y0utubesir/alle2e
-  DOCKERFILE_PATH: .
+  DOCKERFILE_PATH: ./base/build/playwright/Dockerfile.playwright.atlassian
 
 jobs:
   docker:
@@ -36,7 +36,7 @@ jobs:
       - name: Remove Test Image from DockerHub
         run: |
           node ./base/makeTestDockerfile.js
-          docker build /tmp/
+          docker build -t tesr_tag /tmp/
         env:
           BASE_IMG: ${{env.TEST_TAG}}
       - name: Remove Test Image from DockerHub
