@@ -45,6 +45,7 @@ jobs:
           mkdir /tmp/testdocker
           node ./base/makeTestDockerfile.js
           docker build -t test_tag /tmp/testdocker
+          rm -rf /tmp/testdocker/*
         env:
           BASE_IMG: ${{env.TEST_TAG}}
       - name: Remove Test Image from DockerHub

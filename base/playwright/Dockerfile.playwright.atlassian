@@ -28,5 +28,3 @@ RUN echo '-----> Installing Playwright for Python' && \
 RUN echo '-----> Installing Playwright System Dependancies' && \
     DEBIAN_FRONTEND=noninteractive playwright install-deps && \
     echo '-----> Playwright System Dependancies Complete'
-
-RUN rm -rf /tmp/*
