@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Checkout
+      - name: Print Out All Paths
         run: |
           find $(pwd) -type f -not -path '*/\.*' | sort 
       - name: Set up QEMU
