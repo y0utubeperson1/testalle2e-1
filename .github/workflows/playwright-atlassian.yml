@@ -7,9 +7,9 @@ on:
     - cron: "0 0 * * 0"
 
 env:
-  TEST_TAG: y0utubesir/e2e-playwright:atlassian-test
-  OFFICIAL_TAG: y0utubesir/e2e-playwright:atlassian
-  MAIN_REPO_NAME: y0utubesir/e2e-playwright
+  TEST_TAG: y0utubesir/yoyo:atlassian-test
+  OFFICIAL_TAG: y0utubesir/yoyo:atlassian
+  MAIN_REPO_NAME: y0utubesir/yoyo
   DOCKERFILE_PATH: /base/
 
 jobs:
