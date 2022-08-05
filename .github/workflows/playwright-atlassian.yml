@@ -40,11 +40,11 @@ jobs:
           file: ${{ env.GITHUB_WORKSPACE }}/base/playwright/Dockerfile.playwright.atlassian
           load: true
           tags: ${{ env.TEST_TAG }}
-      - name: Create Dockerfile and Run
+      - name: Create Dockerfile and Test Build
         run: |
           mkdir /tmp/testdocker
           node ./base/makeTestDockerfile.js
-          docker build -t test_tag /tmp/tmp/testdocker
+          docker build -t test_tag /tmp/testdocker
         env:
           BASE_IMG: ${{env.TEST_TAG}}
       - name: Remove Test Image from DockerHub
