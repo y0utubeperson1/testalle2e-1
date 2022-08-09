@@ -1,0 +1,59 @@
+name: Playwright Atlassian
+on:
+  push:
+    branches:
+      - "main"
+  schedule:
+    - cron: "0 0 * * 0"
+
+env:
+  TEST_TAG: y0utubesir/puppy1:test
+  OFFICIAL_TAG: y0utubesir/puppy1:latest
+  MAIN_REPO_NAME: y0utubesir/puppy1
+  DOCKERFILE_PATH: /base/
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+      - name: Build and export test image to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ env.GITHUB_WORKSPACE }}/base/puppeteer/Dockerfile.puppeteer
+          load: true
+          tags: ${{ env.TEST_TAG }}
+      - name: Create Dockerfile and Test Build
+        run: |
+          mkdir /tmp/testdocker
+          node ./base/makeTestDockerfile.js
+          docker build -t test_tag /tmp/testdocker
+        env:
+          BASE_IMG: ${{env.TEST_TAG}}
+      - name: Remove Test Image from DockerHub
+        run: |
+          echo "Test was successful, removing test image"
+          docker run --rm ${{ env.TEST_TAG }}
+      - name: Build and push image to DockerHub
+        uses: docker/build-push-action@v3
+        with:
+          file: ${{ env.GITHUB_WORKSPACE }}/base/puppeteer/Dockerfile.puppeteer
+          push: true
+          tags: ${{ env.OFFICIAL_TAG }}
+      - name: Update repo description
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+          repository: ${{ env.MAIN_REPO_NAME }}
+          readme-filepath: ./README.md
