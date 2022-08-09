@@ -20,7 +20,7 @@ RUN echo '-----> Installing Necessary Libraries & Packages' && \
 RUN echo '-----> Installing Puppeteer for Node' && \
     /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
-    sudo apt-get install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0 && \
+    apt-get install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0 && \
     npm install puppeteer && \
     node /tmp/build/puppeteerLaunch.js && \
     echo '-----> Puppeteer for Node Installation Complete'
