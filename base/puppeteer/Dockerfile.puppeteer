@@ -21,7 +21,7 @@ RUN echo '-----> Installing Puppeteer for Node' && \
     /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
     npm install puppeteer && \
-    node ./tmp/build/puppeteerLaunch.js && \
+    node /tmp/build/puppeteerLaunch.js && \
     echo '-----> Puppeteer for Node Installation Complete'
 
 RUN echo '-----> Installing Puppeteer for Python' && \
