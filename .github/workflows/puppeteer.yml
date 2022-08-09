@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - "main"
-    paths:
-      - '/base/build/puppeteer/**'
-      - '/.github/workflows/puppeteer.yml'
   schedule:
     - cron: "0 0 * * 0"
 
