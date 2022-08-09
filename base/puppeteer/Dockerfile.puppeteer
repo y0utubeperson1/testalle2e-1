@@ -4,7 +4,7 @@ ENV PYTHONV 3.8
 ENV NODEV 16
 
 WORKDIR /tmp
-COPY /build /tmp/build
+COPY ./base/build /tmp/build
 RUN chmod -R +x /tmp/build
 
 RUN echo '-----> Installing Necessary Libraries & Packages' && \
