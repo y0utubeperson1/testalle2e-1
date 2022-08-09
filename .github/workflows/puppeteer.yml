@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - "main"
+    paths:
+      - '/base/build/puppeteer/**'
   schedule:
     - cron: "0 0 * * 0"
 
