@@ -8,6 +8,7 @@ const puppeteer = require('puppeteer');
         "--disable-dev-shm-usage",
         "--disable-setuid-sandbox",
         "--no-sandbox",
+        "--disable-setuid-sandbox"
     ]
 });
   const page = await browser.newPage();

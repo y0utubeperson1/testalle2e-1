@@ -2,13 +2,13 @@ FROM ubuntu:20.04
 
 ENV PYTHONV 3.8
 ENV NODEV 16
+ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /tmp
 COPY ./base/build /tmp/build
 RUN chmod -R +x /tmp/build
 
 RUN echo '-----> Installing Necessary Libraries & Packages' && \
-    export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y python${PYTHONV} python${PYTHONV}-distutils curl && \
     curl https://bootstrap.pypa.io/get-pip.py | python3 && \
@@ -20,6 +20,7 @@ RUN echo '-----> Installing Necessary Libraries & Packages' && \
 RUN echo '-----> Installing Puppeteer for Node' && \
     /tmp/build/nodeSetUnsafe.sh && \
     npm install --global yarn && \
+    sudo apt-get install -y libxtst6 libnss3 libnspr4 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libgdk-pixbuf2.0-0 && \
     npm install puppeteer && \
     node /tmp/build/puppeteerLaunch.js && \
     echo '-----> Puppeteer for Node Installation Complete'
