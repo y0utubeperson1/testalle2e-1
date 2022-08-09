@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
+  console.log(" ---> Launching Puppeteer ")
   const browser = await puppeteer.launch({
     headless: true,
     args: [
@@ -15,4 +16,5 @@ const puppeteer = require('puppeteer');
   await page.goto('https://example.com');
   await page.screenshot({path: 'example.png'});
   await browser.close();
+  console.log(" ---> Puppeteer Ran Successfully")
 })();
